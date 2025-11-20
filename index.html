@@ -1,251 +1,553 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Next Horizon: NCNU BAITIA — Demo</title>
-  <meta name="description" content="NCNU BAITIA Master's demo: curriculum + course explanation. Local fallback implemented for safe demo on GitHub Pages." />
-  <!-- Tailwind CDN (good for quick demos). For production, compile Tailwind into CSS. -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Lucide icons -->
-  <script src="https://unpkg.com/lucide@latest/dist/lucide.min.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Next Horizon: Business Management & IT Innovation</title>
+    <meta name="description" content="BAITIA Master's Program at NCNU - Combining Business Administration and Information Technology.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 
-  <style>
-    :root{
-      /* Use consistent names: blue + accent (sky) */
-      --ncnu-blue: 12 74 110;    /* rgb(12,74,110) - deep navy */
-      --ncnu-accent: 0 191 255;  /* rgb(0,191,255) - sky blue accent */
-      --page-bg: #f8fafc;
-    }
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
-    .bg-ncnu-blue { background-color: rgb(var(--ncnu-blue)); }
-    .text-ncnu-blue { color: rgb(var(--ncnu-blue)); }
-    .bg-ncnu-accent { background-color: rgb(var(--ncnu-accent)); }
-    .text-ncnu-accent { color: rgb(var(--ncnu-accent)); }
+    <!-- Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XCR8GF65FX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XCR8GF65FX');
+    </script>
 
-    body { font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif; background: var(--page-bg); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
-
-    /* Fade-in animation class (Tailwind-like) */
-    .fade-in { animation: fadeIn .35s ease-out both; opacity: 0; }
-    @keyframes fadeIn { to { opacity: 1; } }
-
-    /* Spinner colors */
-    .spinner { color: rgb(var(--ncnu-blue)); }
-
-    /* Focus outline for accessibility */
-    .focus-ring:focus { outline: 3px solid rgba(0,0,0,0.08); box-shadow: 0 0 0 3px rgba(2,132,199,0.15); }
-
-    /* Small utility to style lucide icons once loaded */
-    .icon { display:inline-block; vertical-align:middle; }
-  </style>
+    <style>
+        body { font-family: 'Inter', 'Noto Sans TC', sans-serif; }
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        /* Custom scrollbar for course lists */
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+    </style>
 </head>
-<body class="antialiased min-h-screen text-gray-800">
+<body class="bg-white text-slate-800 min-h-screen flex flex-col selection:bg-teal-100 selection:text-teal-900">
 
-  <main class="max-w-4xl mx-auto p-6">
-    <header class="mb-8 flex items-center gap-4">
-      <img src="" alt="" id="logo" class="h-12 w-12 rounded-md bg-ncnu-blue/10 hidden" />
-      <div>
-        <h1 class="text-2xl font-semibold text-ncnu-blue">Business Admin. & IT Innovation — NCNU (demo)</h1>
-        <p class="text-sm text-gray-600">Interactive curriculum demo — ready for GitHub Pages</p>
-      </div>
+    <!-- HEADER -->
+    <header class="sticky top-0 z-50 bg-white shadow-md border-b border-gray-200">
+        <!-- Top Bar -->
+        <div class="bg-teal-900 text-white text-xs py-1 px-4 flex justify-between items-center">
+            <a href="https://www.ncnu.edu.tw" target="_blank" rel="noreferrer" class="hover:underline" data-i18n="header.ncnu">National Chi Nan University (NCNU)</a>
+            <a href="https://baitia.ncnu.edu.tw/p/404-1084-24750.php?Lang=en" target="_blank" rel="noreferrer" class="hover:underline" data-i18n="header.dept">Dept. of BAITIA</a>
+        </div>
+
+        <!-- Main Nav -->
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- Logo -->
+            <div class="flex items-center gap-4 cursor-pointer" onclick="window.open('https://baitia.ncnu.edu.tw/p/404-1084-24750.php?Lang=en', '_blank')">
+                <img src="https://service.ncnu.edu.tw/ncnuweb/units/share/%E5%85%A8%E6%A0%A1%E5%85%B1%E7%94%A8/web_material/images/logo/ps/NCNU_logo%E5%9C%96%E8%88%87%E5%BA%95%E6%96%87%E5%AD%97.jpg" alt="NCNU Logo" class="h-10 w-auto object-contain">
+                <div class="hidden md:block">
+                    <h1 class="font-bold text-lg text-slate-800 leading-tight" data-i18n="header.title">Next Horizon</h1>
+                    <p class="text-xs text-slate-500 font-medium tracking-wide" data-i18n="header.subtitle">Business Management & IT Innovation</p>
+                </div>
+            </div>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center gap-6">
+                <button onclick="switchView('home')" class="nav-btn text-sm font-semibold text-slate-600 hover:text-teal-600 transition" id="nav-home" data-i18n="header.nav.home">Home</button>
+                
+                <!-- Dropdown -->
+                <div class="relative group">
+                    <button onclick="switchView('curriculum')" class="nav-btn flex items-center gap-1 text-sm font-semibold text-slate-600 hover:text-teal-600 transition" id="nav-curriculum">
+                        <span data-i18n="header.nav.curriculum">Curriculum Planning</span>
+                        <i data-lucide="chevron-down" class="w-3 h-3"></i>
+                    </button>
+                    <div class="absolute top-full left-0 w-64 bg-white shadow-xl rounded-md border border-gray-100 py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform z-50">
+                        <a href="https://baitia.ncnu.edu.tw/p/403-1084-1146.php?Lang=en" target="_blank" class="block px-4 py-2 text-xs text-slate-600 hover:bg-teal-50 hover:text-teal-700" data-i18n="deptLinks.intl">Dept. of International Studies</a>
+                        <a href="https://baitia.ncnu.edu.tw/p/403-1084-1148.php?Lang=en" target="_blank" class="block px-4 py-2 text-xs text-slate-600 hover:bg-teal-50 hover:text-teal-700" data-i18n="deptLinks.bank">Dept. of Banking and Finance</a>
+                        <a href="https://baitia.ncnu.edu.tw/p/403-1084-1145.php?Lang=en" target="_blank" class="block px-4 py-2 text-xs text-slate-600 hover:bg-teal-50 hover:text-teal-700" data-i18n="deptLinks.econ">Dept. of Economics</a>
+                        <a href="https://baitia.ncnu.edu.tw/p/403-1084-1147.php?Lang=en" target="_blank" class="block px-4 py-2 text-xs text-slate-600 hover:bg-teal-50 hover:text-teal-700" data-i18n="deptLinks.im">Dept. of Information Management</a>
+                        <a href="https://baitia.ncnu.edu.tw/p/403-1084-1149.php?Lang=en" target="_blank" class="block px-4 py-2 text-xs text-slate-600 hover:bg-teal-50 hover:text-teal-700" data-i18n="deptLinks.tourism">Dept. of Tourism</a>
+                        <a href="https://baitia.ncnu.edu.tw/p/403-1084-1151.php?Lang=en" target="_blank" class="block px-4 py-2 text-xs text-slate-600 hover:bg-teal-50 hover:text-teal-700" data-i18n="deptLinks.cs">Dept. of Computer Science</a>
+                    </div>
+                </div>
+
+                <button onclick="switchView('admission')" class="nav-btn text-sm font-semibold text-slate-600 hover:text-teal-600 transition" id="nav-admission" data-i18n="header.nav.admission">Admission</button>
+
+                <button onclick="toggleLang()" class="flex items-center gap-1 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-full text-xs font-bold text-slate-700 transition focus:ring-2 focus:ring-teal-500">
+                    <i data-lucide="globe" class="w-3 h-3"></i>
+                    <span id="lang-label">繁中</span>
+                </button>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-slate-700 hover:bg-slate-100 rounded">
+                <i data-lucide="menu" class="w-6 h-6" id="menu-icon"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full z-40 shadow-lg">
+            <div class="flex flex-col p-4 space-y-4">
+                <button onclick="mobileNav('home')" class="text-left font-medium text-slate-700" data-i18n="header.nav.home">Home</button>
+                <div class="space-y-2">
+                    <button onclick="mobileNav('curriculum')" class="text-left font-medium text-slate-700 w-full" data-i18n="header.nav.curriculum">Curriculum Planning</button>
+                </div>
+                <button onclick="mobileNav('admission')" class="text-left font-medium text-slate-700" data-i18n="header.nav.admission">Admission</button>
+                <button onclick="toggleLang(); toggleMobileMenu()" class="flex items-center gap-2 text-left font-bold text-teal-700 pt-4 border-t border-gray-100">
+                    <i data-lucide="globe" class="w-4 h-4"></i>
+                    <span id="mobile-lang-label">Switch to 繁中</span>
+                </button>
+            </div>
+        </div>
     </header>
 
-    <section class="bg-white shadow-sm rounded-lg p-6 mb-6 fade-in">
-      <h2 class="text-lg font-medium mb-2">Curriculum (sample)</h2>
-      <p class="text-sm text-gray-600 mb-4">Click a course to get a one-sentence explanation. (Mock fallback is used when no API key is present.)</p>
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow">
+        
+        <!-- VIEW: HOME -->
+        <div id="view-home" class="fade-in">
+            <!-- Hero -->
+            <section class="relative bg-slate-900 text-white py-20 lg:py-32 overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-br from-teal-900 via-slate-900 to-black opacity-90"></div>
+                <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0); background-size: 40px 40px;"></div>
+                
+                <div class="container mx-auto px-4 relative z-10 text-center md:text-left">
+                    <div class="max-w-3xl">
+                        <span class="inline-block py-1 px-3 rounded-full bg-teal-600/30 border border-teal-400/50 text-teal-300 text-xs font-bold mb-6 tracking-wider uppercase">NCNU BAITIA Master's Program</span>
+                        <h2 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight tracking-tight" data-i18n="hero.title">Next Horizon: Business Management & IT Innovation</h2>
+                        <p class="text-lg md:text-xl text-slate-300 mb-10 leading-relaxed max-w-2xl" data-i18n="hero.mission">A Master's program at NCNU’s BAITIA — Learn from experts in five management disciplines shaping the global business landscape.</p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                            <a href="https://exam.ncnu.edu.tw/114FApply.html" target="_blank" class="px-8 py-4 bg-amber-500 text-slate-900 font-bold rounded hover:bg-amber-400 transition-all transform hover:-translate-y-0.5 shadow-lg shadow-amber-500/20 flex items-center justify-center gap-2">
+                                <span data-i18n="hero.ctaApply">Apply Now</span> <i data-lucide="external-link" class="w-4 h-4"></i>
+                            </a>
+                            <button onclick="switchView('curriculum')" class="px-8 py-4 bg-transparent border border-white/30 text-white font-semibold rounded hover:bg-white/10 transition-all flex items-center justify-center gap-2 backdrop-blur-sm">
+                                <span data-i18n="hero.ctaCurriculum">View Curriculum</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-      <ul id="coursesList" class="space-y-3">
-        <!-- JavaScript will populate this -->
-      </ul>
-    </section>
+            <!-- Panels -->
+            <section class="py-20 bg-gray-50">
+                <div class="container mx-auto px-4">
+                    <div class="grid md:grid-cols-3 gap-8 -mt-32 relative z-20">
+                        <!-- Panel 1 -->
+                        <div class="bg-white p-8 rounded-xl shadow-xl border-t-4 border-teal-600 hover:shadow-2xl transition-shadow duration-300 flex flex-col">
+                            <div class="mb-4 p-3 bg-gray-50 rounded-full w-fit"><i data-lucide="book-open" class="w-8 h-8 text-teal-600"></i></div>
+                            <h3 class="text-xl font-bold text-slate-800 mb-3" data-i18n="panels.overview.title">Program Overview</h3>
+                            <p class="text-slate-600 mb-6 flex-grow" data-i18n="panels.overview.desc">Discover how we blend traditional business administration with cutting-edge information technology innovation.</p>
+                            <button onclick="window.open('https://baitia.ncnu.edu.tw/p/404-1084-24750.php?Lang=en', '_blank')" class="text-teal-700 font-bold flex items-center gap-1 hover:gap-2 transition-all group w-fit">
+                                <span data-i18n="panels.overview.link">Read More</span> <i data-lucide="chevron-right" class="w-4 h-4 group-hover:text-amber-500"></i>
+                            </button>
+                        </div>
+                        <!-- Panel 2 -->
+                        <div class="bg-white p-8 rounded-xl shadow-xl border-t-4 border-teal-600 hover:shadow-2xl transition-shadow duration-300 flex flex-col">
+                            <div class="mb-4 p-3 bg-gray-50 rounded-full w-fit"><i data-lucide="file-text" class="w-8 h-8 text-amber-600"></i></div>
+                            <h3 class="text-xl font-bold text-slate-800 mb-3" data-i18n="panels.curriculum.title">Curriculum Snapshot</h3>
+                            <p class="text-slate-600 mb-6 flex-grow" data-i18n="panels.curriculum.desc">Explore our comprehensive courses ranging from AI and Big Data to ESG and Global Strategy.</p>
+                            <button onclick="switchView('curriculum')" class="text-teal-700 font-bold flex items-center gap-1 hover:gap-2 transition-all group w-fit">
+                                <span data-i18n="panels.curriculum.link">View Courses</span> <i data-lucide="chevron-right" class="w-4 h-4 group-hover:text-amber-500"></i>
+                            </button>
+                        </div>
+                        <!-- Panel 3 -->
+                        <div class="bg-white p-8 rounded-xl shadow-xl border-t-4 border-teal-600 hover:shadow-2xl transition-shadow duration-300 flex flex-col">
+                            <div class="mb-4 p-3 bg-gray-50 rounded-full w-fit"><i data-lucide="users" class="w-8 h-8 text-indigo-600"></i></div>
+                            <h3 class="text-xl font-bold text-slate-800 mb-3" data-i18n="panels.connect.title">Connect with BAITIA</h3>
+                            <p class="text-slate-600 mb-6 flex-grow" data-i18n="panels.connect.desc">Ready to join us? Find admission details, requirements, and how to start your journey.</p>
+                            <button onclick="switchView('admission')" class="text-teal-700 font-bold flex items-center gap-1 hover:gap-2 transition-all group w-fit">
+                                <span data-i18n="panels.connect.link">Admission Info</span> <i data-lucide="chevron-right" class="w-4 h-4 group-hover:text-amber-500"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
 
-    <section class="bg-white shadow-sm rounded-lg p-6 fade-in" aria-live="polite">
-      <h3 class="text-base font-medium mb-2">Explanation</h3>
-      <div id="explanationContainer" class="min-h-[64px] text-sm text-gray-700">
-        <p id="explanationText" class="text-gray-500">Select a course to see a one-sentence explanation.</p>
-      </div>
-    </section>
+        <!-- VIEW: CURRICULUM -->
+        <div id="view-curriculum" class="hidden fade-in">
+            <div class="bg-slate-50 py-12 border-b border-slate-200">
+                <div class="container mx-auto px-4">
+                    <h2 class="text-3xl font-bold text-slate-800 mb-4" data-i18n="curriculum.title">Curriculum Planning</h2>
+                    <p class="max-w-2xl text-slate-600 mb-6" data-i18n="curriculum.intro">Our curriculum is designed to foster leaders in the digital age. Click below for the official detailed planning.</p>
+                    <a href="https://baitia.ncnu.edu.tw/p/404-1084-24760.php?Lang=en" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 bg-teal-700 text-white rounded font-semibold hover:bg-teal-800 transition-colors shadow-md">
+                        <span data-i18n="curriculum.officialLink">Official Curriculum Page</span> <i data-lucide="external-link" class="w-4 h-4"></i>
+                    </a>
+                </div>
+            </div>
 
-    <footer class="mt-6 text-xs text-gray-500">
-      <p>Demo page • No secrets committed. To enable live AI explanations, configure an API key securely (see comments in the HTML source).</p>
+            <div class="container mx-auto px-4 py-12 grid lg:grid-cols-4 gap-10">
+                <!-- Sidebar -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white p-6 rounded-lg shadow-md border border-gray-100 sticky top-24">
+                        <h3 class="font-bold text-slate-800 mb-4 pb-2 border-b border-gray-100 flex items-center gap-2">
+                            <i data-lucide="graduation-cap" class="w-4 h-4 text-teal-600"></i> <span data-i18n="curriculum.deptsTitle">Related Departments</span>
+                        </h3>
+                        <ul class="space-y-3">
+                            <li><a href="https://baitia.ncnu.edu.tw/p/403-1084-1146.php?Lang=en" target="_blank" class="text-sm text-slate-600 hover:text-teal-600 hover:underline flex justify-between group"><span data-i18n="deptLinks.intl">Dept. of International Studies</span> <i data-lucide="external-link" class="w-3 h-3 opacity-0 group-hover:opacity-100"></i></a></li>
+                            <li><a href="https://baitia.ncnu.edu.tw/p/403-1084-1148.php?Lang=en" target="_blank" class="text-sm text-slate-600 hover:text-teal-600 hover:underline flex justify-between group"><span data-i18n="deptLinks.bank">Dept. of Banking</span> <i data-lucide="external-link" class="w-3 h-3 opacity-0 group-hover:opacity-100"></i></a></li>
+                            <li><a href="https://baitia.ncnu.edu.tw/p/403-1084-1145.php?Lang=en" target="_blank" class="text-sm text-slate-600 hover:text-teal-600 hover:underline flex justify-between group"><span data-i18n="deptLinks.econ">Dept. of Economics</span> <i data-lucide="external-link" class="w-3 h-3 opacity-0 group-hover:opacity-100"></i></a></li>
+                            <li><a href="https://baitia.ncnu.edu.tw/p/403-1084-1147.php?Lang=en" target="_blank" class="text-sm text-slate-600 hover:text-teal-600 hover:underline flex justify-between group"><span data-i18n="deptLinks.im">Dept. of Info Management</span> <i data-lucide="external-link" class="w-3 h-3 opacity-0 group-hover:opacity-100"></i></a></li>
+                            <li><a href="https://baitia.ncnu.edu.tw/p/403-1084-1149.php?Lang=en" target="_blank" class="text-sm text-slate-600 hover:text-teal-600 hover:underline flex justify-between group"><span data-i18n="deptLinks.tourism">Dept. of Tourism</span> <i data-lucide="external-link" class="w-3 h-3 opacity-0 group-hover:opacity-100"></i></a></li>
+                            <li><a href="https://baitia.ncnu.edu.tw/p/403-1084-1151.php?Lang=en" target="_blank" class="text-sm text-slate-600 hover:text-teal-600 hover:underline flex justify-between group"><span data-i18n="deptLinks.cs">Dept. of CS</span> <i data-lucide="external-link" class="w-3 h-3 opacity-0 group-hover:opacity-100"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Course Groups (Generated via JS to ensure bilingual support) -->
+                <div class="lg:col-span-3">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                         <i data-lucide="book-open" class="w-6 h-6 text-amber-500"></i> <span data-i18n="curriculum.coursesTitle">Course Catalog</span>
+                    </h3>
+                    <div id="course-list-container" class="space-y-6"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW: ADMISSION -->
+        <div id="view-admission" class="hidden fade-in pb-16">
+            <div class="bg-indigo-900 text-white py-16">
+                <div class="container mx-auto px-4 text-center">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4" data-i18n="admission.title">Admission Guide</h2>
+                    <a href="https://exam.ncnu.edu.tw/114FApply.html" target="_blank" class="inline-block mt-6 px-8 py-3 bg-amber-500 text-slate-900 font-bold rounded hover:bg-amber-400 shadow-lg transition-transform hover:scale-105" data-i18n="admission.cta">Apply Now via NCNU Exam Portal</a>
+                </div>
+            </div>
+
+            <div class="container mx-auto px-4 -mt-8">
+                <!-- Steps -->
+                <div class="bg-white rounded-xl shadow-lg p-8 grid md:grid-cols-3 gap-8 text-center mb-12 border border-gray-100">
+                    <div class="relative">
+                        <div class="w-12 h-12 bg-indigo-100 text-indigo-700 rounded-full flex items-center justify-center font-bold text-xl mx-auto mb-4 border-2 border-indigo-200">1</div>
+                        <h4 class="font-bold text-slate-800" data-i18n="admission.step1">Prepare Documents</h4>
+                        <div class="hidden md:block absolute top-6 left-1/2 w-full h-0.5 bg-indigo-50 -z-10"></div>
+                    </div>
+                    <div class="relative">
+                        <div class="w-12 h-12 bg-indigo-100 text-indigo-700 rounded-full flex items-center justify-center font-bold text-xl mx-auto mb-4 border-2 border-indigo-200">2</div>
+                        <h4 class="font-bold text-slate-800" data-i18n="admission.step2">Submit Application</h4>
+                        <div class="hidden md:block absolute top-6 left-1/2 w-full h-0.5 bg-indigo-50 -z-10"></div>
+                    </div>
+                    <div class="relative">
+                        <div class="w-12 h-12 bg-indigo-100 text-indigo-700 rounded-full flex items-center justify-center font-bold text-xl mx-auto mb-4 border-2 border-indigo-200">3</div>
+                        <h4 class="font-bold text-slate-800" data-i18n="admission.step3">Review & Interview</h4>
+                    </div>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-12">
+                    <!-- Left Column -->
+                    <div class="space-y-10">
+                        <div>
+                            <h3 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                                <i data-lucide="check-circle" class="w-6 h-6 text-teal-600"></i> <span data-i18n="admission.checklistTitle">Required Documents Checklist</span>
+                            </h3>
+                            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                                <ul class="space-y-3" id="checklist-container">
+                                    <!-- Populated by JS -->
+                                </ul>
+                                <div class="mt-6 p-4 bg-gray-50 rounded text-xs text-gray-500">Note: Please refer to the official PDF for exact formatting requirements.</div>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                                <i data-lucide="graduation-cap" class="w-6 h-6 text-indigo-600"></i> <span data-i18n="admission.gradReq.title">Graduation Requirements</span>
+                            </h3>
+                            <div class="bg-indigo-50 p-6 rounded-lg border border-indigo-100">
+                                <p class="font-semibold text-indigo-900 mb-2">• <span data-i18n="admission.gradReq.credits">30 Credits</span></p>
+                                <p class="font-semibold text-indigo-900">• <span data-i18n="admission.gradReq.thesis">Master's Thesis</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="space-y-10">
+                        <div>
+                            <h3 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                                <i data-lucide="file-text" class="w-6 h-6 text-amber-600"></i> <span data-i18n="admission.fees.title">Estimated Fees</span>
+                            </h3>
+                            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 space-y-4">
+                                <div class="flex justify-between border-b border-gray-100 pb-3"><span class="text-slate-600 text-sm font-medium" data-i18n="admission.fees.living">Living Expenses</span></div>
+                                <div class="flex justify-between border-b border-gray-100 pb-3"><span class="text-slate-600 text-sm" data-i18n="admission.fees.insurance">Health Insurance</span></div>
+                                <div class="flex justify-between border-b border-gray-100 pb-3"><span class="text-slate-600 text-sm" data-i18n="admission.fees.lifeIns">Life Insurance</span></div>
+                                <div class="flex justify-between border-b border-gray-100 pb-3"><span class="text-slate-600 text-sm" data-i18n="admission.fees.dorm">Dorm</span></div>
+                                <div class="flex justify-between"><span class="text-slate-600 text-sm" data-i18n="admission.fees.deposit">Deposit</span></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Contact Box -->
+                        <div class="bg-slate-800 text-white p-8 rounded-xl shadow-lg">
+                            <h3 class="text-xl font-bold mb-4" data-i18n="footer.contactHeader">Contact BAITIA</h3>
+                            <div class="space-y-4 text-sm text-slate-300">
+                                <p class="flex items-start gap-3"><i data-lucide="map-pin" class="w-4 h-4 text-teal-400 mt-1"></i> <span data-i18n="footer.address">Address</span></p>
+                                <p class="flex items-center gap-3"><i data-lucide="phone" class="w-4 h-4 text-teal-400"></i> +886-49-2910960 ext. 4591</p>
+                                <p class="flex items-center gap-3"><i data-lucide="mail" class="w-4 h-4 text-teal-400"></i> baitia@ncnu.edu.tw</p>
+                                <div class="pt-4 flex gap-4">
+                                    <a href="https://www.facebook.com/baitiancnu/?rdid=ZQtesH4eDDf9BTsy" target="_blank" class="p-2 bg-white/10 rounded hover:bg-teal-600 transition"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                                    <a href="https://www.instagram.com/ncnu_baitia/?igsh=d2F6cWpudmU5M3Jp&utm_source=qr#" target="_blank" class="p-2 bg-white/10 rounded hover:bg-pink-600 transition"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                                    <a href="https://www.youtube.com/channel/UCfW7jAUBy-yxZCxlsxe5ERg" target="_blank" class="p-2 bg-white/10 rounded hover:bg-red-600 transition"><i data-lucide="youtube" class="w-5 h-5"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 py-8 border-t border-slate-800">
+        <div class="container mx-auto px-4 text-center text-xs">
+            <p class="mb-2" data-i18n="footer.address">Address</p>
+            <p data-i18n="footer.rights">© 2025 BAITIA. All Rights Reserved.</p>
+        </div>
     </footer>
-  </main>
 
-  <script>
-    /* ========== Configuration ==========
-
-       IMPORTANT:
-       - This demo includes a safe local fallback for "explain course" so the page works without secrets.
-       - If you want real LLM generation, do NOT embed a real API key in a public HTML file.
-         Instead, implement a server-side endpoint that keeps the key secret, or use GitHub Actions/Secrets and a backend.
-
-       If you have a server proxy that accepts POSTs to /api/gen and returns { text: "..." } then
-       you can set useLiveAPI = true and set API_ENDPOINT appropriately below.
-    ==================================== */
-
-    const useLiveAPI = false; // set true only if you have a secure server proxy
-    const API_ENDPOINT = '/api/gen'; // Example server-side endpoint (NOT provided by this static demo)
-    // const apiKey = ''; // Never place a real API key here in a public repo
-
-    // Sample curriculum list (extracted & simplified from the Medium page)
-    const COURSES = [
-      "Information Systems Management",
-      "Business Strategy & Innovation",
-      "Data Analytics for Managers",
-      "Digital Transformation",
-      "Technology Policy & Ethics"
-    ];
-
-    // ---------- Minimal app state & render ----------
-    window.appState = {
-      loadingCourse: null,
-      explanations: {}, // courseName => text
-      lang: 'en'
-    };
-
-    function renderApp() {
-      const ul = document.getElementById('coursesList');
-      ul.innerHTML = '';
-      COURSES.forEach(course => {
-        const li = document.createElement('li');
-        li.className = 'flex items-center justify-between p-2 border rounded-md';
-
-        const left = document.createElement('div');
-        left.innerHTML = `<strong class="block">${escapeHtml(course)}</strong><span class="text-xs text-gray-500 block">Click to explain</span>`;
-
-        const btn = document.createElement('button');
-        btn.className = 'ml-4 px-3 py-1 bg-ncnu-blue text-white rounded focus-ring';
-        btn.setAttribute('aria-label', `Explain ${course}`);
-        btn.innerText = window.appState.loadingCourse === course ? 'Loading…' : 'Explain';
-        btn.disabled = (window.appState.loadingCourse && window.appState.loadingCourse !== course);
-
-        btn.addEventListener('click', () => handleExplainCourse(course));
-
-        li.appendChild(left);
-        li.appendChild(btn);
-        ul.appendChild(li);
-      });
-    }
-
-    // Safe HTML escaping helper
-    function escapeHtml(s) {
-      return s.replace(/[&<>"']/g, (m) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-    }
-
-    // ---------- API helper with backoff (works only if you have a secure server proxy) ----------
-    async function generateContentWithBackoff(payload, fetchUrl) {
-      const MAX_RETRIES = 4;
-      const BASE_DELAY_MS = 800;
-
-      for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
-        try {
-          const resp = await fetch(fetchUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-          });
-
-          if (!resp.ok) {
-            // If non-retryable client errors, break immediately
-            if (resp.status >= 400 && resp.status < 500 && resp.status !== 429) {
-              const text = await resp.text();
-              throw new Error(`Non-retryable: ${resp.status} ${text}`);
+    <!-- LOGIC -->
+    <script>
+        // Data
+        const translations = {
+            en: {
+                header: {
+                    title: "Next Horizon",
+                    subtitle: "Business Management & IT Innovation",
+                    ncnu: "National Chi Nan University (NCNU)",
+                    dept: "Dept. of BAITIA",
+                    nav: { home: "Home", curriculum: "Curriculum Planning", admission: "Admission" }
+                },
+                hero: {
+                    title: "Next Horizon: Business Management & IT Innovation",
+                    mission: "A Master's program at NCNU’s BAITIA — Learn from experts in five management disciplines shaping the global business landscape.",
+                    ctaApply: "Apply Now",
+                    ctaCurriculum: "View Curriculum"
+                },
+                panels: {
+                    overview: { title: "Program Overview", desc: "Discover how we blend traditional business administration with cutting-edge information technology innovation.", link: "Read More" },
+                    curriculum: { title: "Curriculum Snapshot", desc: "Explore our comprehensive courses ranging from AI and Big Data to ESG and Global Strategy.", link: "View Courses" },
+                    connect: { title: "Connect with BAITIA", desc: "Ready to join us? Find admission details, requirements, and how to start your journey.", link: "Admission Info" }
+                },
+                curriculum: {
+                    title: "Curriculum Planning",
+                    intro: "Our curriculum is designed to foster leaders in the digital age. Click below for the official detailed planning.",
+                    officialLink: "Official Curriculum Page",
+                    deptsTitle: "Related Departments",
+                    coursesTitle: "Course Catalog",
+                    groups: {
+                        research: "Research & Methodology",
+                        tech: "IT & Analytics",
+                        management: "Management & Strategy",
+                        finance: "Finance & Economics",
+                        general: "General & Seminars"
+                    }
+                },
+                admission: {
+                    title: "Admission Guide",
+                    step1: "Prepare Documents", step2: "Submit Application", step3: "Review & Interview",
+                    checklistTitle: "Required Documents Checklist",
+                    gradReq: { title: "Graduation Requirements", credits: "30 Credits (9 Required + 21 Elective)", thesis: "Master's Thesis (in English) & Oral Defense" },
+                    fees: { title: "Estimated Fees & Expenses", living: "Living Expenses: ~NT$6,000–10,000 / month", insurance: "Health Insurance: NT$4,956 / semester", lifeIns: "Life Insurance: NT$325 / semester", dorm: "Graduate Dorm (Twin): ~NT$11,600 / semester", deposit: "Security Deposit: NT$2,000 (refundable)" },
+                    cta: "Apply Now via NCNU Exam Portal"
+                },
+                footer: {
+                    address: "No. 1, University Rd., Puli Twp., Nantou County 54561, Taiwan (R.O.C.)",
+                    rights: "© 2025 BAITIA, National Chi Nan University. All Rights Reserved.",
+                    contactHeader: "Contact BAITIA"
+                },
+                deptLinks: {
+                    intl: "Dept. of International Studies", bank: "Dept. of Banking and Finance", econ: "Dept. of Economics", im: "Dept. of Information Management", tourism: "Dept. of Tourism", cs: "Dept. of Computer Science"
+                },
+                // Course Names
+                courses: {
+                    researchMethods: "Research Methods", seminarBAIT: "Seminar of Business Administration and IT Innovation",
+                    aiTopics: "Topics of AI and Prospective IT", bigData: "Advanced Big Data Analytics and Modeling", python: "Python for Finance", programming: "Programming and Computer System",
+                    bizAnalytics: "Business Management Analytics", digitalMkt: "Digital Marketing", coopStrategy: "Co-opetitive Dynamics and Platform Strategy", globalInd: "Global Industry Competitive Analysis", stratMgt: "Strategic Management of Multinational Corporations", modernOrg: "Modern Organization Management", orgBehavior: "Organization Behavior and Theory", designThinking: "Design Thinking", advOrg: "Advanced Organization Theory",
+                    greenFinance: "Green Finance", esg: "ESG Principles for Sustainable Businesses", econometrics: "Econometrics I", empiricalFin: "Empirical Research Methods of Finance", finMgt: "Financial Management", indEcon: "Industrial Economics", investMgt: "Investment Management", econData: "Economic and Finance Empirical Data Analysis",
+                    worldEcon: "World Economics and Politics", tourismMkt: "Tourism Marketing", advOps: "Advanced Operations Research", bizNews: "Business News and Analysis", indTrends: "Industry Trends and Business Models"
+                },
+                checklist: [
+                    "Application Form (incl. Scholarship)", "Photocopy of Passport/Certificate of Nationality", "Copy of Highest-level Diploma", "Transcript of Highest Degree", "Autobiography", "Statement of Undertaking", "Study Plan", "Financial Statement", "Language Proficiency Certificate", "Undergraduate Transcripts", "Proof of English Proficiency (≥ CEFR B1)", "Supporting Documents"
+                ]
+            },
+            zh: {
+                header: {
+                    title: "新視野",
+                    subtitle: "企業管理與資訊科技創新",
+                    ncnu: "國立暨南國際大學 (NCNU)",
+                    dept: "BAITIA 碩士學程",
+                    nav: { home: "首頁", curriculum: "課程規劃", admission: "招生資訊" }
+                },
+                hero: {
+                    title: "新視野：企業管理與資訊科技創新",
+                    mission: "國立暨南國際大學 BAITIA 碩士學程 — 向塑造全球商業版圖的五大管理領域專家學習。",
+                    ctaApply: "立即申請",
+                    ctaCurriculum: "查看課程"
+                },
+                panels: {
+                    overview: { title: "學程總覽", desc: "探索我們如何將傳統企業管理與尖端資訊科技創新相結合。", link: "閱讀更多" },
+                    curriculum: { title: "課程快照", desc: "探索從 AI 與大數據到 ESG 與全球策略的綜合課程。", link: "查看課程" },
+                    connect: { title: "連結 BAITIA", desc: "準備好加入了嗎？查詢招生細節、要求以及如何開始您的旅程。", link: "招生資訊" }
+                },
+                curriculum: {
+                    title: "課程規劃",
+                    intro: "我們的課程旨在培養數位時代的領導者。點擊下方查看官方詳細規劃。",
+                    officialLink: "官方課程頁面",
+                    deptsTitle: "相關系所",
+                    coursesTitle: "課程目錄",
+                    groups: {
+                        research: "研究與方法論",
+                        tech: "資訊科技與分析",
+                        management: "管理與策略",
+                        finance: "金融與經濟",
+                        general: "綜合研討"
+                    }
+                },
+                admission: {
+                    title: "招生指南",
+                    step1: "準備文件", step2: "提交申請", step3: "審查與面試",
+                    checklistTitle: "必備文件清單",
+                    gradReq: { title: "畢業門檻", credits: "30 學分 (9 必修 + 21 選修)", thesis: "碩士論文 (英文撰寫) 及 口試通過" },
+                    fees: { title: "預估費用與開銷", living: "生活費：約 NT$6,000–10,000 / 月", insurance: "學生平安保險：NT$4,956 / 學期", lifeIns: "人壽保險：NT$325 / 學期", dorm: "研究生宿舍 (雙人房)：約 NT$11,600 / 學期", deposit: "保證金：NT$2,000 (可退還)" },
+                    cta: "透過 NCNU 招生系統申請"
+                },
+                footer: {
+                    address: "54561 南投縣埔里鎮大學路1號",
+                    rights: "© 2025 BAITIA, 國立暨南國際大學. 版權所有.",
+                    contactHeader: "聯絡 BAITIA"
+                },
+                deptLinks: {
+                    intl: "國際企業學系", bank: "財務金融學系", econ: "經濟學系", im: "資訊管理學系", tourism: "觀光休閒與餐旅管理學系", cs: "資訊工程學系"
+                },
+                courses: {
+                    researchMethods: "研究方法", seminarBAIT: "企業管理與資訊科技創新研討",
+                    aiTopics: "人工智慧與前瞻資訊科技專題", bigData: "進階大數據分析與建模", python: "財務 Python", programming: "程式設計與電腦系統",
+                    bizAnalytics: "商業管理分析", digitalMkt: "數位行銷", coopStrategy: "競合動態與平台策略", globalInd: "全球產業競爭分析", stratMgt: "跨國企業策略管理", modernOrg: "現代組織管理", orgBehavior: "組織行為與理論", designThinking: "設計思考", advOrg: "進階組織理論",
+                    greenFinance: "綠色金融", esg: "企業永續經營之 ESG 原則", econometrics: "計量經濟學 I", empiricalFin: "財務實證研究方法", finMgt: "財務管理", indEcon: "產業經濟學", investMgt: "投資管理", econData: "經濟與財務實證資料分析",
+                    worldEcon: "世界經濟與政治", tourismMkt: "觀光行銷", advOps: "高等作業研究", bizNews: "商業新聞與分析", indTrends: "產業趨勢與商業模式"
+                },
+                checklist: [
+                    "申請表 (含獎學金申請)", "護照影本或國籍證明", "最高學歷畢業證書影本", "最高學歷成績單影本", "自傳", "切結書", "讀書計畫", "財力證明", "語言能力測驗證明", "大學歷年成績單", "英語能力證明 (相當於 CEFR B1 以上)", "其他有利審查資料"
+                ]
             }
-            // else throw to trigger retry logic
-            throw new Error(`Server status ${resp.status}`);
-          }
+        };
 
-          const json = await resp.json();
-          // Expecting { text: "..."} from our server proxy
-          if (json && typeof json.text === 'string') return json.text.trim();
-          // Try to extract from common shapes if you call external services directly:
-          if (json?.candidates?.[0]?.content?.parts?.[0]?.text) {
-            return json.candidates[0].content.parts[0].text.trim();
-          }
-          throw new Error('Unexpected response structure');
+        let currentLang = 'en';
 
-        } catch (err) {
-          // Last attempt -> rethrow
-          if (attempt === MAX_RETRIES - 1) throw err;
-          // wait with exponential backoff + jitter
-          const delay = BASE_DELAY_MS * Math.pow(2, attempt) + Math.random() * 300;
-          await new Promise(r => setTimeout(r, delay));
+        // Course Structure Definition (Groups)
+        const courseGroups = [
+            { key: 'research', items: ['researchMethods', 'seminarBAIT'] },
+            { key: 'tech', items: ['aiTopics', 'bigData', 'python', 'programming'] },
+            { key: 'management', items: ['bizAnalytics', 'digitalMkt', 'coopStrategy', 'globalInd', 'stratMgt', 'modernOrg', 'orgBehavior', 'designThinking', 'advOrg'] },
+            { key: 'finance', items: ['greenFinance', 'esg', 'econometrics', 'empiricalFin', 'finMgt', 'indEcon', 'investMgt', 'econData'] },
+            { key: 'general', items: ['worldEcon', 'tourismMkt', 'advOps', 'bizNews', 'indTrends'] }
+        ];
+
+        function getNestedValue(obj, path) {
+            return path.split('.').reduce((o, k) => (o || {})[k], obj);
         }
-      }
-    }
 
-    // ---------- Explain course (uses live API if configured, otherwise local fallback) ----------
-    async function handleExplainCourse(courseName) {
-      if (window.appState.loadingCourse === courseName) return;
-      window.appState.loadingCourse = courseName;
-      updateExplanation(`${courseName}: Loading explanation...`);
+        function updateContent() {
+            const t = translations[currentLang];
 
-      try {
-        let explanation;
-        if (useLiveAPI) {
-          // Replace with your secure server endpoint that calls the LLM (server must keep API key secret)
-          const payload = {
-            systemInstruction: { parts: [{ text: "You are a concise academic advisor. Return a single-sentence explanation." }] },
-            contents: [{ parts: [{ text: `Explain the course: ${courseName}` }] }]
-          };
-          explanation = await generateContentWithBackoff(payload, API_ENDPOINT);
-        } else {
-          // Local deterministic fallback (safe for public GitHub)
-          explanation = mockExplainCourse(courseName);
-          // add a short artificial delay so the UI feels natural
-          await new Promise(r => setTimeout(r, 400));
+            // Update simple text elements
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                const value = getNestedValue(t, key);
+                if (value) el.textContent = value;
+            });
+
+            // Update Dynamic Lists (Courses)
+            const courseContainer = document.getElementById('course-list-container');
+            courseContainer.innerHTML = '';
+            courseGroups.forEach(group => {
+                const groupTitle = t.curriculum.groups[group.key];
+                let groupHTML = `
+                    <div class="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
+                        <div class="bg-slate-50 px-6 py-4 border-b border-gray-100">
+                            <h4 class="font-bold text-slate-700">${groupTitle}</h4>
+                        </div>
+                        <div class="p-6">
+                            <ul class="grid md:grid-cols-2 gap-x-8 gap-y-3">`;
+                
+                group.items.forEach(courseKey => {
+                    groupHTML += `<li class="flex items-start gap-2 text-slate-600 text-sm"><div class="mt-1.5 min-w-[6px] min-h-[6px] rounded-full bg-teal-400"></div>${t.courses[courseKey]}</li>`;
+                });
+
+                groupHTML += `</ul></div></div>`;
+                courseContainer.innerHTML += groupHTML;
+            });
+
+            // Update Dynamic Lists (Checklist)
+            const checklistContainer = document.getElementById('checklist-container');
+            checklistContainer.innerHTML = '';
+            t.checklist.forEach(item => {
+                checklistContainer.innerHTML += `<li class="flex items-start gap-3 text-sm text-slate-600 border-b border-dashed border-gray-100 pb-2 last:border-0 last:pb-0"><div class="mt-0.5 min-w-[16px] text-teal-500">✓</div>${item}</li>`;
+            });
+
+            // Update Meta
+            document.title = currentLang === 'en' ? translations.en.meta.title : translations.zh.meta.title; // Fallback since meta not in data-i18n loop
+
+            // Update Lang Buttons
+            const langLabel = currentLang === 'en' ? '繁中' : 'EN';
+            document.getElementById('lang-label').textContent = langLabel;
+            document.getElementById('mobile-lang-label').textContent = currentLang === 'en' ? 'Switch to 繁中' : 'Switch to English';
         }
-        window.appState.explanations[courseName] = explanation;
-        updateExplanation(explanation);
-      } catch (err) {
-        console.error(err);
-        const errMsg = 'Sorry — explanation failed. See console for details.';
-        window.appState.explanations[courseName] = errMsg;
-        updateExplanation(errMsg);
-      } finally {
-        window.appState.loadingCourse = null;
-        renderApp(); // update button states
-      }
-    }
 
-    function updateExplanation(text) {
-      const container = document.getElementById('explanationText');
-      container.textContent = text;
-    }
+        function toggleLang() {
+            currentLang = currentLang === 'en' ? 'zh' : 'en';
+            updateContent();
+        }
 
-    // A very small mock explanation routine (deterministic & safe)
-    function mockExplainCourse(course) {
-      const map = {
-        "Information Systems Management": "Explores how organizations align IT systems with business strategy, operations and governance.",
-        "Business Strategy & Innovation": "Focuses on designing competitive strategies that leverage technology-driven innovation.",
-        "Data Analytics for Managers": "Covers how managers use data analysis to inform decisions, measure outcomes, and create value.",
-        "Digital Transformation": "Examines organizational change driven by digital technologies, processes and culture.",
-        "Technology Policy & Ethics": "Introduces legal, ethical and societal implications of technology adoption and innovation."
-      };
-      return map[course] || `${course}: A course linking business goals and technology capabilities.`;
-    }
+        function switchView(viewName) {
+            // Hide all views
+            document.getElementById('view-home').classList.add('hidden');
+            document.getElementById('view-curriculum').classList.add('hidden');
+            document.getElementById('view-admission').classList.add('hidden');
+            
+            // Show target
+            document.getElementById(`view-${viewName}`).classList.remove('hidden');
 
-    // ---------- Initialize ----------
-    function init() {
-      // optionally set a logo src if you have one
-      const logo = document.getElementById('logo');
-      // logo.src = '...'; logo.classList.remove('hidden');
+            // Scroll top
+            window.scrollTo(0, 0);
 
-      renderApp();
+            // Close mobile menu if open
+            document.getElementById('mobile-menu').classList.add('hidden');
+            document.getElementById('menu-icon').setAttribute('data-lucide', 'menu');
+            lucide.createIcons();
+            
+            // Update Active Nav State
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.replace('text-teal-700', 'text-slate-600'));
+            const activeBtn = document.getElementById(`nav-${viewName}`);
+            if(activeBtn) activeBtn.classList.replace('text-slate-600', 'text-teal-700');
+        }
 
-      // small progressive enhancement: replace placeholders of lucide icons if present
-      if (window.lucide) {
-        // if lucide script loaded, run setup
-        try { window.lucide && window.lucide.createIcons(); } catch(e){/* ignore */ }
-      }
-    }
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                icon.setAttribute('data-lucide', 'x');
+            } else {
+                menu.classList.add('hidden');
+                icon.setAttribute('data-lucide', 'menu');
+            }
+            lucide.createIcons();
+        }
 
-    // Run init on DOM ready
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', init);
-    } else {
-      init();
-    }
-  </script>
+        function mobileNav(view) {
+            switchView(view);
+            toggleMobileMenu();
+        }
+
+        // Init
+        document.addEventListener('DOMContentLoaded', () => {
+            updateContent();
+            lucide.createIcons();
+            document.getElementById('nav-home').classList.replace('text-slate-600', 'text-teal-700');
+        });
+
+        // Meta Data Patch (since not in DOM body)
+        translations.en.meta = { title: "Next Horizon: Business Management & IT Innovation" };
+        translations.zh.meta = { title: "新視野：企業管理與資訊科技創新" };
+
+    </script>
 </body>
 </html>
